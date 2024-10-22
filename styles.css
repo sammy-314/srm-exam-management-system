@@ -1,0 +1,226 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #212121;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+h1 {
+    color: #00bfff; /* Light blue for the title */
+    text-align: center;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tablinks {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 14px 20px;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tablinks:hover {
+    background-color: #575757;
+}
+
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border-top: none;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.tabcontent h2 {
+    color: #00bfff; /* Light blue for headings */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #444444;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    color: #ffffff;
+}
+
+th {
+    background-color: #333333;
+}
+
+tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+.login-box {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00bfff;
+}
+
+.textbox {
+    margin-bottom: 20px;
+}
+
+.textbox input {
+    width: 95%;
+    padding: 10px;
+    background: #2a2a2a;
+    border: none;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: #00bfff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #000000;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #1e90ff;
+}
+
+.login-toggle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.toggle-btn {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background-color: #575757;
+}
+
+.logout-btn {
+    position: static;
+    bottom: 10px;
+    align-items: center;
+    padding: 10px 10px;
+    font-size: 10px;
+    background-color: #ff4500;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.logout-btn:hover {
+    background-color: #ff6347;
+}
+
+.error-message {
+    color: #ff0000;
+    text-align: center;
+    margin-top: 10px;
+}
+
+ul {
+    list-style-type: disc;
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+.download-btn {
+    background-color: #00bfff;
+    color: #ffffff;
+}
+
+.download-btn:hover {
+    background-color: #1e90ff;
+}
+
+/* Faculty Page Specific Styles */
+.faculty-page .tabcontent {
+    display: none;
+    padding: 20px;
+    border-top: none;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.faculty-page .tablinks {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 14px 20px;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.faculty-page .tablinks:hover {
+    background-color: #575757;
+}
+
+/* Specific styles for subject tabs in faculty view */
+#DataStructures, #Algorithms, #OperatingSystems, #DatabaseSystems, #ComputerNetworks, #SoftwareEngineering, #WebDevelopment {
+    display: block; /* Ensure all sections are displayed */
+}

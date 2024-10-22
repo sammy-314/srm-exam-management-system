@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRM Exam Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.19/jspdf.plugin.autotable.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    
+    <!-- Login Page -->   
+    <div id="loginPage" class="container">
+        <div class="header">
+            <img src="srmlogo.png" alt="SRM Logo" class="logo">
+            <h1>SRM Exam Management System</h1>
+        </div>
+        
+        <!-- Buttons to switch between login types -->
+        <div class="login-toggle">
+            <button id="studentLoginBtn" class="btn toggle-btn">Student Login</button>
+            <button id="facultyLoginBtn" class="btn toggle-btn">Faculty Login</button>
+        </div>
+        
+        <!-- Student Login Form -->
+        <div id="studentLogin" class="login-box">
+            <h2>Student Login</h2>
+            <form id="loginForm">
+                <div class="textbox">
+                    <input type="text" placeholder="Username" id="username" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" placeholder="Password" id="password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p id="errorMessage" class="error-message"></p>
+        </div>
+        
+        <!-- Faculty Login Form -->
+        <div id="facultyLogin" class="login-box" style="display: none;">
+            <h2>Faculty Login</h2>
+            <form id="facultyLoginForm">
+                <div class="textbox">
+                    <input type="text" placeholder="Username" id="facultyUsername" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" placeholder="Password" id="facultyPassword" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p id="facultyErrorMessage" class="error-message"></p>
+        </div>
+    </div>
+
+    <!-- Student Main Page -->
+    <div id="studentMainPage" class="container" style="display: none;">
+        <div class="header">
+            <img src="srmlogo.png" alt="SRM Logo" class="logo">
+            <h1>SRM Exam Management System</h1>
+        </div>
+        <div class="tabs">
+            <button class="tablinks" onclick="openTab(event, 'Rules')">Rules and Regulations</button>
+            <button class="tablinks" onclick="openTab(event, 'ExamSchedule')">Exam Schedule</button>
+            <button class="tablinks" onclick="openTab(event, 'Results')">Results</button>
+            <button class="tablinks" onclick="openTab(event, 'StudentProfile')">Student Profile</button>
+        </div>
+
+        <!-- Rules and Regulations Tab -->
+        <div id="Rules" class="tabcontent">
+            <h2>Rules and Regulations</h2>
+            <ul>
+                <li>Students must carry their Hall Ticket for each exam.</li>
+                <li>Mobile phones and electronic devices are not allowed inside the examination hall.</li>
+                <li>Students should reach the examination venue 30 minutes before the scheduled time.</li>
+                <li>Any form of malpractice will lead to disqualification from the exam.</li>
+                <li>Students must carry their college ID card along with the Hall Ticket.</li>
+            </ul>
+        </div>
+
+        <!-- Exam Schedule Tab -->
+        <div id="ExamSchedule" class="tabcontent">
+            <h2>Exam Schedule</h2>
+            <table>
+                <tr>
+                    <th>Subject Code</th>
+                    <th>Subject</th>
+                    <th>Credits</th>
+                    <th>Semester</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Venue</th>
+                </tr>
+                <tr>
+                    <td>CSE101</td>
+                    <td>Data Structures</td>
+                    <td>4</td>
+                    <td>3</td>
+                    <td>2024-11-01</td>
+                    <td>10:00 AM</td>
+                    <td>Room 101</td>
+                </tr>
+                <tr>
+                    <td>CSE102</td>
+                    <td>Algorithms</td>
+                    <td>4</td>
+                    <td>3</td>
+                    <td>2024-11-03</td>
+                    <td>2:00 PM</td>
+                    <td>Room 102</td>
+                </tr>
+                <tr>
+                    <td>CSE103</td>
+                    <td>Operating Systems</td>
+                    <td>4</td>
+                    <td>4</td>
+                    <td>2024-11-05</td>
+                    <td>10:00 AM</td>
+                    <td>Room 103</td>
+                </tr>
+                <tr>
+                    <td>CSE104</td>
+                    <td>Database Systems</td>
+                    <td>4</td>
+                    <td>4</td>
+                    <td>2024-11-07</td>
+                    <td>2:00 PM</td>
+                    <td>Room 104</td>
+                </tr>
+                <tr>
+                    <td>CSE105</td>
+                    <td>Computer Networks</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>2024-11-09</td>
+                    <td>10:00 AM</td>
+                    <td>Room 105</td>
+                </tr>
+                <tr>
+                    <td>CSE106</td>
+                    <td>Software Engineering</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>2024-11-11</td>
+                    <td>2:00 PM</td>
+                    <td>Room 106</td>
+                </tr>
+                <tr>
+                    <td>CSE107</td>
+                    <td>Web Development</td>
+                    <td>4</td>
+                    <td>6</td>
+                    <td>2024-11-13</td>
+                    <td>10:00 AM</td>
+                    <td>Room 107</td>
+                </tr>
+            </table>
+            <button class="btn download-btn" onclick="downloadPDF()">Download Hall Ticket (PDF)</button>
+        </div>
+
+        <!-- Results Tab -->
+        <div id="Results" class="tabcontent">
+            <h2>Results</h2>
+            <table>
+                <tr>
+                    <th>Subject Code</th>
+                    <th>Subject</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Student Profile Tab -->
+        <div id="StudentProfile" class="tabcontent">
+            <h2>Student Profile</h2>
+            <p id="studentName"></p>
+            <p><strong>Roll Number:</strong> <span id="rollNumber"></span></p>
+            <p><strong>Course:</strong> B.Tech Computer Science Engineering</p>
+            <p><strong>Email:</strong> <span id="studentEmail"></span></p>
+            <button class="btn logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Faculty Main Page -->
+    <div id="facultyMainPage" class="container" style="display: none;">
+        <div class="header">
+            <img src="srmlogo.png" alt="SRM Logo" class="logo">
+            <h1>SRM Exam Management System</h1>
+        </div>
+        <div class="tabs">
+            <button class="tablinks" onclick="openTab(event, 'DataStructures')">Data Structures</button>
+            <button class="tablinks" onclick="openTab(event, 'Algorithms')">Algorithms</button>
+            <button class="tablinks" onclick="openTab(event, 'OperatingSystems')">Operating Systems</button>
+            <button class="tablinks" onclick="openTab(event, 'DatabaseSystems')">Database Systems</button>
+            <button class="tablinks" onclick="openTab(event, 'ComputerNetworks')">Computer Networks</button>
+            <button class="tablinks" onclick="openTab(event, 'SoftwareEngineering')">Software Engineering</button>
+            <button class="tablinks" onclick="openTab(event, 'WebDevelopment')">Web Development</button>
+        </div>
+        
+
+        <!-- Data Structures Tab -->
+        <div id="DataStructures" class="tabcontent">
+            <h2>Data Structures</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll Number</th>
+                    <th>Email</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Samyak Tripathi</td>
+                    <td>123456</td>
+                    <td>samyak.tripathi@gmail.com</td>
+                    <td>A</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Manavi Lahoti</td>
+                    <td>123457</td>
+                    <td>manavi.lahoti@gmail.com</td>
+                    <td>B</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Ria Wadhwa</td>
+                    <td>123458</td>
+                    <td>ria.wadhwa@gmail.com</td>
+                    <td>C</td>
+                    <td>Passed</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Algorithms Tab -->
+        <div id="Algorithms" class="tabcontent">
+            <h2>Algorithms</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll Number</th>
+                    <th>Email</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Samyak Tripathi</td>
+                    <td>123456</td>
+                    <td>samyak.tripathi@gmail.com</td>
+                    <td>B</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Manavi Lahoti</td>
+                    <td>123457</td>
+                    <td>manavi.lahoti@gmail.com</td>
+                    <td>A</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Ria Wadhwa</td>
+                    <td>123458</td>
+                    <td>ria.wadhwa@gmail.com</td>
+                    <td>B</td>
+                    <td>Passed</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Operating Systems Tab -->
+        <div id="OperatingSystems" class="tabcontent">
+            <h2>Operating Systems</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll Number</th> 
+                    <th>Email</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Samyak Tripathi</td>
+                    <td>123456</td>
+                    <td>samyak.tripathi@gmail.com</td>
+                    <td>A</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Manavi Lahoti</td>
+                    <td>123457</td>
+                    <td>manavi.lahoti@gmail.com</td>
+                    <td>C</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Ria Wadhwa</td>
+                    <td>123458</td>
+                    <td>ria.wadhwa@gmail.com</td>
+                    <td>D</td>
+                    <td>Failed</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Database Systems Tab -->
+        <div id="DatabaseSystems" class="tabcontent">
+            <h2>Database Systems</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll Number</th>
+                    <th>Email</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Samyak Tripathi</td>
+                    <td>123456</td>
+                    <td>samyak.tripathi@gmail.com</td>
+                    <td>A</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Manavi Lahoti</td>
+                    <td>123457</td>
+                    <td>manavi.lahoti@gmail.com</td>
+                    <td>B</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Ria Wadhwa</td>
+                    <td>123458</td>
+                    <td>ria.wadhwa@gmail.com</td>
+                    <td>B</td>
+                    <td>Passed</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Computer Networks Tab -->
+        <div id="ComputerNetworks" class="tabcontent">
+            <h2>Computer Networks</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll Number</th>
+                    <th>Email</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Samyak Tripathi</td>
+                    <td>123456</td>
+                    <td>samyak.tripathi@gmail.com</td>
+                    <td>B</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Manavi Lahoti</td>
+                    <td>123457</td>
+                    <td>manavi.lahoti@gmail.com</td>
+                    <td>B</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Ria Wadhwa</td>
+                    <td>123458</td>
+                    <td>ria.wadhwa@gmail.com</td>
+                    <td>A</td>
+                    <td>Passed</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Software Engineering Tab -->
+        <div id="SoftwareEngineering" class="tabcontent">
+            <h2>Software Engineering</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll Number</th>
+                    <th>Email</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Samyak Tripathi</td>
+                    <td>123456</td>
+                    <td>samyak.tripathi@gmail.com</td>
+                    <td>B</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Manavi Lahoti</td>
+                    <td>123457</td>
+                    <td>manavi.lahoti@gmail.com</td>
+                    <td>C</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Ria Wadhwa</td>
+                    <td>123458</td>
+                    <td>ria.wadhwa@gmail.com</td>
+                    <td>D</td>
+                    <td>Failed</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Web Development Tab -->
+        <div id="WebDevelopment" class="tabcontent">
+            <h2>Web Development</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll Number</th>
+                    <th>Email</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Samyak Tripathi</td>
+                    <td>123456</td>
+                    <td>samyak.tripathi@gmail.com</td>
+                    <td>A</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Manavi Lahoti</td>
+                    <td>123457</td>
+                    <td>manavi.lahoti@gmail.com</td>
+                    <td>A</td>
+                    <td>Passed</td>
+                </tr>
+                <tr>
+                    <td>Ria Wadhwa</td>
+                    <td>123458</td>
+                    <td>ria.wadhwa@gmail.com</td>
+                    <td>B</td>
+                    <td>Passed</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
